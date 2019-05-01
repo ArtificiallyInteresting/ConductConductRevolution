@@ -91,3 +91,46 @@ def drawLetter(frame, x, y, letter, textColor, secondCircleRadius=40):
     cv2.circle(frame, (x, y), 40, textColor, 1)
     cv2.circle(frame, (x, y), secondCircleRadius, textColor, 1)
     cv2.putText(frame, letter, (x - 15, y + 15), font, 1.5, textColor, 2, cv2.LINE_AA)
+
+
+def quiver(u, v, scale, stride, color=(0, 255, 0)):
+
+    img_out = np.zeros((v.shape[0], u.shape[1], 3), dtype=np.uint8)
+
+    for y in range(0, v.shape[0], stride):
+
+        for x in range(0, u.shape[1], stride):
+            cv2.line(img_out, (x, y), (x + int(u[y, x] * scale),
+                                       y + int(v[y, x] * scale)), color, 1)
+            cv2.circle(img_out, (x + int(u[y, x] * scale),
+                                 y + int(v[y, x] * scale)), 1, color, 1)
+    return img_out
+
+
+def drawUandV(frame, u, v):
+    x, x2, y = 20, 300, 450
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    umean = int(np.mean(u))
+    vmean = int(np.mean(v))
+    utext = "U: "
+    if umean == 0:
+        utext = "U: +"
+        ucolor = (255,0,0)
+    elif (umean > 0):
+        utext = "U: +"
+        ucolor = (0,255,0)
+    else:
+        ucolor = (0,0,255)
+    vtext = "V: "
+    if vmean == 0:
+        vtext = "V: +"
+        vcolor = (255,0,0)
+    elif (vmean > 0):
+        vtext = "V: +"
+        vcolor = (0,255,0)
+    else:
+        vcolor = (0,0,255)
+    text = utext + str(umean).zfill(4) + ","
+    text2 = vtext + str(vmean).zfill(4)
+    cv2.putText(frame, text, (x, y), font, 1.5,  ucolor, 2, cv2.LINE_AA)
+    cv2.putText(frame, text2, (x2, y), font, 1.5,  vcolor, 2, cv2.LINE_AA)
