@@ -92,6 +92,12 @@ def drawLetter(frame, x, y, letter, textColor, secondCircleRadius=40):
     cv2.circle(frame, (x, y), secondCircleRadius, textColor, 1)
     cv2.putText(frame, letter, (x - 15, y + 15), font, 1.5, textColor, 2, cv2.LINE_AA)
 
+def drawDirection(frame, x, y, direction, textColor, secondCircleRadius=40):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    cv2.circle(frame, (x, y), 40, textColor, 1)
+    cv2.circle(frame, (x, y), secondCircleRadius, textColor, 1)
+    cv2.putText(frame, direction, (x - 15, y + 15), font, 1.5, textColor, 2, cv2.LINE_AA)
+
 
 def quiver(u, v, scale, stride, color=(0, 255, 0)):
 

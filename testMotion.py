@@ -4,36 +4,23 @@ from util import *
 import vision
 from motion import *
 import time
+from conductMode import *
 
 def main():
     vc = startWebcamFeed()
-    motionImage = cv2.namedWindow("motionImage")
-
-    rval, oldFrame = vc.read()
+    # motionImage = cv2.namedWindow("motionImage")
+    motionController = Motion()
     rval, frame = vc.read()
-    width = 100
-    lastAction = time.time()
-    actionCooldown = 1.0
+    motionController.onFrame(frame)
+    rval, frame = vc.read()
     while rval:
-        oldFrameSegment = oldFrame[200:200+width,200:200+width].copy()
-        frameSegment = frame[200:200+width,200:200+width].copy()
-
-        if lastAction + actionCooldown < time.time():
-            motion = getMotions(oldFrameSegment, frameSegment, 100, .6)
-            if motion is not None:
-                print(motion)
-                lastAction = time.time()
-
-        oldFrame = frame.copy()
-        cv2.rectangle(frame, (200,200), (200+width,200+width),  (255,255,0))
+        # cv2.rectangle(frame, (200,200), (200+width,200+width),  (255,255,0))
+        frame = motionController.onFrame(frame)
         showFrame(frame)
         rval, frame = vc.read()
         key = cv2.waitKey(50)
         if key == 27:  # exit on ESC
             break
-        if key == 32:  # space
-            showImage(oldFrameSegment)
-            showImage(frameSegment)
     endWebcamFeed()
 
 if __name__ == '__main__':

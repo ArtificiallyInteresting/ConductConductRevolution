@@ -1,0 +1,25 @@
+wait 4
+left 8 400 400
+right 8 400 400
+up 8 400 400
+down 8 400 400
+wait 4
+left 8 400 400
+right 8 400 400
+up 8 400 400
+down 8 400 400
+wait 4
+left 8 400 400
+right 8 400 400
+up 8 400 400
+down 8 400 400
+wait 4
+left 8 400 400
+right 8 400 400
+up 8 400 400
+down 8 400 400
+wait 4
+left 8 400 400
+right 8 400 400
+up 8 400 400
+down 8 400 400
