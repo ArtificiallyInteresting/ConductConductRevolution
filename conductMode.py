@@ -24,7 +24,7 @@ class conductMode:
                     else:
                         self.notes.append([command[0], command[2], command[3]])
 
-    def onFrame(self, frame, direction=None):
+    def onFrame(self, frame, direction):
         now = time.time()
         if (now - self.startTime) / self.secondsPerBeat > self.beatsDone + 1:
             #Onto a new beat.
@@ -32,20 +32,14 @@ class conductMode:
             print("Beat: " + str(self.beatsDone))
 
         currentlyPlaying, currentlyPlayingX, currentlyPlayingY = self.getCurrentNote()
-        #This used to be in the above if statement, so you only get points if the note is showing on frame change.
-        # if currentlyPlaying in notesDictionary.keys():
-        #     x,y = notesDictionary[currentlyPlaying]
-        #     distanceThreshold = 50
-        #     if (np.sqrt(np.square(x - currentlyPlayingX) + np.square(y - currentlyPlayingY))):
-        #         self.score += 1
+
         font = cv2.FONT_HERSHEY_SIMPLEX
-        text = 'Score: ' + str(self.score)# + " Play next: " + self.notes[self.beatsDone+1][0]
+        text = 'Score: ' + str(self.score)
         #img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]]
         cv2.putText(frame, text, (10, 450), font, 1.5, (255, 255, 255), 2, cv2.LINE_AA)
         green = (0,255,0)
         yellow = (0,255,255)
         if (currentlyPlaying != 'wait'):
-            # vision.drawLetter(frame, currentlyPlayingX, currentlyPlayingY, currentlyPlaying, green)
             vision.drawDirection(frame, currentlyPlayingX, currentlyPlayingY, currentlyPlaying, green)
 
         timeSinceLastBeat = (now - self.startTime) % self.secondsPerBeat
@@ -62,7 +56,7 @@ class conductMode:
         secondCircleRadius = 40  # The default
         secondCircleRadius *= beatsInFuture + (self.secondsPerBeat - timeSinceLastBeat)
         # secondCircleRadius *= 4 - (beatsInFuture + 1 + (timeSinceLastBeat / self.secondsPerBeat))
-        vision.drawLetter(frame, x, y, newNote, yellow, secondCircleRadius=int(secondCircleRadius))
+        vision.drawDirection(frame, x, y, newNote, yellow, secondCircleRadius=int(secondCircleRadius))
 
 
     def getCurrentNote(self):
@@ -75,14 +69,3 @@ class conductMode:
         return currentlyPlaying, currentlyPlayingX, currentlyPlayingY
 
 
-        # done = False
-        #
-        # while (not done):
-        #     beatsInFuture += 1
-        #     currentNote = self.notes[self.beatsDone+beatsInFuture][0]
-        #     previousNote = self.notes[self.beatsDone+beatsInFuture-1][0]
-        #     if (currentNote != previousNote and currentNote != 'wait'):
-        #         x,y = int(self.notes[self.beatsDone+beatsInFuture][1]), int(self.notes[self.beatsDone+beatsInFuture][2])
-        #         secondCircleRadius = 40 #The default
-        #         secondCircleRadius *= 4-(i+1+(timeSinceLastBeat/self.secondsPerBeat))
-        #         vision.drawLetter(frame, x, y, currentNote, yellow, secondCircleRadius=int(secondCircleRadius))
