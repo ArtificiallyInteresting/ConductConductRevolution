@@ -34,6 +34,8 @@ class conductMode:
         currentlyPlaying, currentlyPlayingX, currentlyPlayingY = self.getCurrentNote()
 
         font = cv2.FONT_HERSHEY_SIMPLEX
+        if currentlyPlaying == direction:
+            self.score += 1
         text = 'Score: ' + str(self.score)
         #img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]]
         cv2.putText(frame, text, (10, 450), font, 1.5, (255, 255, 255), 2, cv2.LINE_AA)
@@ -54,7 +56,7 @@ class conductMode:
 
         x, y = int(self.notes[self.beatsDone + beatsInFuture][1]), int(self.notes[self.beatsDone + beatsInFuture][2])
         secondCircleRadius = 40  # The default
-        secondCircleRadius *= beatsInFuture + (self.secondsPerBeat - timeSinceLastBeat)
+        secondCircleRadius *= beatsInFuture + ((self.secondsPerBeat - timeSinceLastBeat)/self.secondsPerBeat)
         # secondCircleRadius *= 4 - (beatsInFuture + 1 + (timeSinceLastBeat / self.secondsPerBeat))
         vision.drawDirection(frame, x, y, newNote, yellow, secondCircleRadius=int(secondCircleRadius))
 

@@ -16,7 +16,7 @@ class Motion:
         # changedMask = (magnitudeDifference * 255.0) / (np.max((magnitudeDifference)))
         changedMask = np.zeros_like(image)
         changedMask[magnitudeDifference > threshold] = 255.
-        cv2.imshow("motionImage", changedMask)
+        # cv2.imshow("motionImage", changedMask)
         return changedMask
 
     #top, bottom, left, right
@@ -34,7 +34,7 @@ class Motion:
         bestMotion = None
         bestMotionScore = thresholdSize
         motionScores = (top, bottom, left, right)
-        motionNames = ("top", "bottom", "left", "right")
+        motionNames = ("up", "down", "right", "left")
         for val in range(len(motionScores)):
             motionScore = motionScores[val]
             if (motionScore > bestMotionScore):

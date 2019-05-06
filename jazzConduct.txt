@@ -1,25 +1,22 @@
 wait 4
-left 8 400 400
-right 8 400 400
-up 8 400 400
-down 8 400 400
+down 2 320 350
+left 2 200 350
+right 2 440 350
+up 2 320 240
 wait 4
-left 8 400 400
-right 8 400 400
-up 8 400 400
-down 8 400 400
+down 1 320 350
+up 1 100 100
+left 2 200 350
+right 2 440 350
+up 2 320 240
 wait 4
-left 8 400 400
-right 8 400 400
-up 8 400 400
-down 8 400 400
+down 1 320 350
+up 1 100 350
+left 2 200 350
+right 2 440 350
+up 2 320 240
 wait 4
-left 8 400 400
-right 8 400 400
-up 8 400 400
-down 8 400 400
-wait 4
-left 8 400 400
-right 8 400 400
-up 8 400 400
-down 8 400 400
+down 2 320 350
+left 2 200 350
+right 2 440 350
+up 2 320 240
